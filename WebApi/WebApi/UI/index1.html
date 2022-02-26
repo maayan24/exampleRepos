@@ -7,10 +7,60 @@
     <script>
         function showOfficers() {
 
+            $.ajax({
+                dataType: "json",			                //סוג הנתונים שאנחנו מצפים לקבל מהשרת
+                url: "/api/officers",			            //הכתובת לשרת ולפונקציה
+                contentType: "application/json",		   //סוג הנתונים שאנחנו שולחים לשרת
+                type: "GET",				              //סוג הפעולה
+                //data:  JSON.stringify(students),			  //הנתונים עצמם שאנחנו שולחים
+                success: function (data) {
+                    console.log(data);
+                    $("#officers").empty();
+
+                    for (var i = 0; i < data.length; i++) {
+                        var $p = $("<p>");
+                        $p.html(data[i].BadgeNum + ", " + data[i].Name)
+                        $("#officers").append($p);
+                    }
+
+                },
+                error: function (err) {
+                    //פונקציה שתופעל במקרה של שגיאה
+                    console.log(err);
+                }
+            });
+        }
+
+        function updateOfficer() {
+            
+            var badgeNum = $("#badgeNum").val();
+            var newName = $("#newName").val();
+                $.ajax({
+                    dataType: "json",			                //סוג הנתונים שאנחנו מצפים לקבל מהשרת
+                    url: encodeURI(`/api/officer/${badgeNum}`),			            //הכתובת לשרת ולפונקציה
+                    contentType: "application/json",		   //סוג הנתונים שאנחנו שולחים לשרת
+                    type: "Put",				              //סוג הפעולה
+                    data: JSON.stringify(newName),			  //הנתונים עצמם שאנחנו שולחים
+                    success: function () {
+                        showOfficers();
+                        //$("#officers").html(data);
+                    },
+                    error: function (err) {
+                        //פונקציה שתופעל במקרה של שגיאה
+                        console.log(err);
+                    }
+                });
+
         }
     </script>
 </head>
 <body dir="rtl" lang="he">
-    <input type="button" value="הצג קצינים" onclick="showOfficers()"/>
+
+    <input type="button" value="הצג קצינים" onclick="showOfficers()" />
+    <div id="officers"></div>
+    <br /><br />
+    <input type="text" placeholder="הזן מספר תג" id="badgeNum"/>
+    <input type="text" placeholder="הזן שם חדש" id="newName"/>
+    <input type="button" value="עדכן פרטים" onclick="updateOfficer()" />
 </body>
 </html>

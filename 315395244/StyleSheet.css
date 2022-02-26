@@ -1,0 +1,62 @@
+﻿body {
+    font-family: Calibri;
+    text-align: center;
+    direction: rtl;
+}
+
+#container {
+    width: 1200px;
+    margin: auto;
+}
+
+#header {
+    font-size: 50px;
+    background-color: #59039e;
+    color: aliceblue;
+    font-weight: bold;
+}
+
+#main {
+    height: 700px;
+}
+
+#right_div {
+    width: 30%;
+    float: right;
+}
+
+table {
+    width: 100%;
+    border-spacing: 2PX;
+    border-collapse:separate;
+    border-color: #59039e;
+}
+
+#last {
+    font-weight: bold;
+}
+
+#left_div {
+    width: 70%;
+    float: right;
+}
+
+table {
+    width: 100%;
+}
+
+img {
+    height: 100%;
+}
+
+td > img {
+    height: 150px;
+}
+
+td > p {
+    height: 40px;
+}
+
+p {
+    font-size: 20px;
+}
